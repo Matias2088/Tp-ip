@@ -41,10 +41,10 @@ def main():
 
         #elige una al azar
         palabraCorrecta=nuevaPalabra(listaPalabrasDiccionario)
-        dibujar(screen, ListaDePalabrasUsuario, palabraUsuario, puntos,segundos, gano, 
+        dibujar(screen, ListaDePalabrasUsuario, palabraUsuario, puntos,segundos, gano,
                 correctas, incorrectas, casi,error,palabraCorrecta, intentos)
         print(palabraCorrecta)
-        
+
         pygame.mixer.music.load("Musica/competition.mp3")
         pygame.mixer.music.play(2)
 
@@ -81,7 +81,7 @@ def main():
                                 continue"""
 
                             #Avisa si la palabra no tiena la longitud deseada
-                            if len(palabraUsuario)!=len(palabraCorrecta):            
+                            if len(palabraUsuario)!=len(palabraCorrecta):
                                 error = "logitud erronea"
                                 continue
 
@@ -116,7 +116,7 @@ def main():
                     if e.key == K_ESCAPE:
                         pygame.quit()
                         return
-                
+
 
         archivo.close()
 #Programa Principal ejecuta Main
