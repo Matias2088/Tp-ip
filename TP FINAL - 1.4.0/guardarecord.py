@@ -42,7 +42,7 @@ listamatriz=separar(lista)
 lNombres=listamatriz[0]
 lPuntos=listamatriz[1]
 
-#devuelve el inice del maximo valor
+#devuelve el indice del maximo valor
 def maximoIndice(lista):
     valor = lista[0]
     maxI = 0
