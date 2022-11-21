@@ -228,6 +228,30 @@ def dibujar(screen, listaDePalabrasUsuario, palabraUsuario, puntos, segundos, ga
 
     #Imprime el texto de error
     mostrarTexto(screen,CENTRO_PANTALLA_X,ALTO-100 ,EtiquetaDelTexto(textoError,1,COLOR_TEXTO, FuenteDelTexto(TAMANNO_LETRA)))
+    
+    
+    def dibujarGuardar(screen,nombre):
+    REC2 = pygame.Rect(REC2_X1,REC2_Y1, REC2_X12, REC2_Y12)  
+    defaultFont= pygame.font.Font( pygame.font.get_default_font(), 40)  
+    pygame.draw.rect(screen,COLOR_ROJO,REC2,0,30)
+    etiquetaSalir = EtiquetaDelTexto("Salir",1,COLOR_AZUL,defaultFont)  
+    screen.blit(etiquetaSalir,(REC2_X1+REC2_X12//2-etiquetaSalir.get_width()//2 , REC2_Y1+REC2_Y12//2-etiquetaSalir.get_height()//2))  
+        #Limpia la pantalla        
+    textoFinal = "INGRESA TU NOMBRE"
+        #Opcion 1
+    mostrarTexto(screen,CENTRO_PANTALLA_X,ALTO-100 ,EtiquetaDelTexto(textoFinal,1,COLOR_TEXTO, FuenteDelTexto(TAMANNO_LETRA)))
+    pygame.draw.line(screen, (255,255,255), (0, ALTO-70) , (ANCHO, ALTO-70), 5)
+
+    #muestra lo que escribe el jugador
+    screen.blit(defaultFont.render(nombre, 1, COLOR_TEXTO), (190, 570))
+
+    pos = 0
+    for elem in devoluciones10():
+        screen.blit(defaultFont.render(elem[0], 1, COLOR_LETRAS), (50,20+ 40 * pos))
+        screen.blit(defaultFont.render(str(elem[1]), 1, COLOR_LETRAS), (500,20+40 * pos))
+        pos += 1
+        pass
+        
 
 
 
