@@ -15,6 +15,7 @@ def main():
     #pygame.mixer.init()
     pygame.mixer.music.load("Musica/competition.mp3")
     pygame.mixer.music.play(2)
+    pygame.mixer.music.set_volume(0.30)
 
     #Preparar la ventana
     pygame.display.set_caption("La escondida...")
@@ -200,10 +201,12 @@ def main():
                 #sonido ganador
                 pygame.mixer.music.load("Musica/win.mp3")
                 pygame.mixer.music.play()
+                pygame.mixer.music.set_volume(0.30)
 
             if intentos==0 or  int(segundos)==0 :
                 pygame.mixer.music.load("Musica/game over.mp3")
                 pygame.mixer.music.play() 
+                pygame.mixer.music.set_volume(0.30)
 
             #Limpiar pantalla anterior            
             screen.blit(FONDO,[0,0])
@@ -254,7 +257,10 @@ def main():
                             salir = True
                             final = False
                             pygame.quit()
-                            return  
+                            return
+                        #GUARDAR
+                        elif mouseX in range(REC9_X1,REC9_X2+1):
+                            print("GUARDAR")
     #cierre del juego si se rompe el bucle
     pygame.quit()
     return        
