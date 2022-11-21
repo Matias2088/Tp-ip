@@ -261,6 +261,62 @@ def main():
                         #GUARDAR
                         elif mouseX in range(REC9_X1,REC9_X2+1):
                             print("GUARDAR")
+         while guarda and not salir:
+            screen.blit(FONDO2,[0,0])
+            dibujarGuardar(screen,nombre)
+            pygame.display.flip()
+           
+
+            #posicion del mouse
+            mouseX,mouseY = pygame.mouse.get_pos()
+
+            #saca el evento ocurrido en pygame           
+            for e in pygame.event.get():
+                if e.type == QUIT:
+                    pygame.quit()
+                    return()
+
+                elif e.type == KEYDOWN:
+                    #Esc para salir
+                    if e.key == K_ESCAPE:
+                        salir = True
+                        final = False
+                        pygame.quit()
+                        return()
+            if pygame.mouse.get_pressed()[0]:
+                if mouseY in range(REC2_Y1,REC2_Y2+1):
+                        #Salir
+                        if mouseX in range(REC2_X1,REC2_X2+1):
+                            salir = True
+                            final = False
+                            pygame.quit()
+                            return
+            fps=3
+            #Buscar la tecla apretada del modulo de eventos de pygame
+            for e in pygame.event.get():
+                nombre=""
+                #QUIT es apretar la X en la ventana
+                if e.type == QUIT:
+                    pygame.quit()
+                    return()
+
+                #Ver si fue apretada alguna tecla
+                if e.type == KEYDOWN:
+                    letra = dameLetraApretada(e.key)
+                    nombre += letra 
+                    #es la palabra que escribe el usuario
+                    if e.key == K_BACKSPACE:
+                        nombre = nombre[0:len(nombre)-1]
+                    #Salir del juego presionando el ESC
+                    if e.key == K_ESCAPE:
+                        pygame.quit()
+                        return
+                    if e.key == K_RETURN:
+                        error=""
+                nombre=""
+                
+                #puntaje=[(nombre,puntos)]
+                #guardar_puntajes(puntaje)
     #cierre del juego si se rompe el bucle
     pygame.quit()
     return        
