@@ -24,14 +24,14 @@ def recuperar_puntajes(nombre_archivo):
 
 
 def ordenar(lista):
-    ordenados=sorted(lista,reverse=True)
+    ordenados=sorted(lista)
     return ordenados
 
 def mejores10(lista):
     mejores=[]
     x=0
     for i in range(len(lista)):
-        if x<=10:
+        if x<10:
             mejores.append(lista[i])
             x+=1
     return mejores
