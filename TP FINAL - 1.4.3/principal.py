@@ -261,6 +261,8 @@ def main():
                         #GUARDAR
                         elif mouseX in range(REC9_X1,REC9_X2+1):
                             print("GUARDAR")
+                            final= False
+                            guarda= True
          while guarda and not salir:
             screen.blit(FONDO2,[0,0])
             dibujarGuardar(screen,nombre)
