@@ -22,10 +22,12 @@ def recuperar_puntajes(nombre_archivo):
         lista.append((nombre,int(puntos)))
     archivo.close()
     return lista
-
+# toma el elemento numero para ordenar
+def take_second(elem):
+    return elem[1]
 
 def ordenar(lista):
-    ordenados=sorted(lista)
+    ordenados=sorted(lista,key=take_second,reverse=True)
     return ordenados
 
 def mejores10(lista):
