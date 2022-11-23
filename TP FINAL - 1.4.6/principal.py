@@ -15,7 +15,7 @@ def main():
     #pygame.mixer.init()
     pygame.mixer.music.load("Musica/musicafondo.mp3")
     pygame.mixer.music.play(3)
-    pygame.mixer.music.set_volume(0.30)
+    pygame.mixer.music.set_volume(0.05)
     sonidoAcierto = pygame.mixer.Sound("Musica/oh-yeah.wav")
 
     #Preparar la ventana
@@ -204,12 +204,12 @@ def main():
                 puntos+=1
                 #sonido ganador
                 sonidoAcierto.play()
-                pygame.mixer.music.set_volume(0.30)
+                pygame.mixer.music.set_volume(0.10)
 
             if intentos==0 or  int(segundos)==0 :
                 pygame.mixer.music.load("Musica/game over.mp3")
                 pygame.mixer.music.play() 
-                pygame.mixer.music.set_volume(0.30)
+                pygame.mixer.music.set_volume(0.10)
 
             #Limpiar pantalla anterior            
             screen.blit(FONDO,[0,0])
