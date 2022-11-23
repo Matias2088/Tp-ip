@@ -12,10 +12,7 @@ def main():
     #Centrar la ventana y despues inicializar pygame
     os.environ["SDL_VIDEO_CENTERED"] = "1"
     pygame.init()
-    #pygame.mixer.init()
-    pygame.mixer.music.load("Musica/musicafondo.mp3")
-    pygame.mixer.music.play(3)
-    pygame.mixer.music.set_volume(0.05)
+    
     sonidoAcierto = pygame.mixer.Sound("Musica/oh-yeah.wav")
 
     #Preparar la ventana
@@ -100,6 +97,10 @@ def main():
                     
         #Reiniciar valores
         if not(final):
+            #pygame.mixer.init()
+            pygame.mixer.music.load("Musica/musicafondo.mp3")
+            pygame.mixer.music.play(3)
+            pygame.mixer.music.set_volume(0.05)
             #tiempo total del juego
             gameClock = pygame.time.Clock()
             totaltime = 0
