@@ -193,6 +193,9 @@ def main():
                                 error ="ya ingresada"
                                 palabraUsuario = ""
                                 continue
+                            correctas = []
+                            incorrectas = []
+                            casi = []
 
                             gano = revision(palabraCorrecta.lower(), palabraUsuario, correctas, incorrectas, casi)
                             ListaDePalabrasUsuario.append(palabraUsuario)
