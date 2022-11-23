@@ -1,6 +1,11 @@
-cont = rojo = 0
-verde = 255
-while rojo <=255 and verde >=0:
-    print(rojo,verde)
-    rojo +=1
-    verde -=1
+archivo = open("lemario.txt","r")
+primero = True
+mayor = []
+for a in archivo:
+    linea = a[:-1]
+    if primero:
+        primero = False
+        mayor = [len(linea),linea]
+    elif len(linea) > mayor[0]:
+        mayor = [len(linea),linea]
+    

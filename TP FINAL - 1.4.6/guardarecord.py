@@ -1,7 +1,5 @@
 #! /usr/bin/env python
-import os, random, sys, math
 
-import pygame
 from pygame.locals import *
 from configuracion import *
 from principal import *
@@ -13,11 +11,11 @@ def guardar_puntajes(puntajes):
         archivo.write("\n"+nombre+","+str(puntos))
     archivo.close()
 
+#devuelve los nombres y puntos en una lista
 def recuperar_puntajes(nombre_archivo):
     lista = []
     archivo = open(nombre_archivo, "r")
     for línea in archivo:
-        print(línea)
         nombre,puntos = línea.rstrip("\\n").split(",")
         lista.append((nombre,int(puntos)))
     archivo.close()
@@ -26,10 +24,12 @@ def recuperar_puntajes(nombre_archivo):
 def take_second(elem):
     return elem[1]
 
+#devuelve la lista con los elementos ordenados de mayor a menor
 def ordenar(lista):
     ordenados=sorted(lista,key=take_second,reverse=True)
     return ordenados
 
+#devuelve una lista con los 10 primeros numeros
 def mejores10(lista):
     mejores=[]
     x=0
@@ -39,6 +39,7 @@ def mejores10(lista):
             x+=1
     return mejores
 
+#devuelve una lista con los mejores 10 puntajes
 def devoluciones10():
     nombre_archivo="resultados.txt"
     lista=mejores10(ordenar(recuperar_puntajes(nombre_archivo)))

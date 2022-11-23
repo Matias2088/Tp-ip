@@ -14,6 +14,7 @@ def main():
     pygame.init()
     
     sonidoAcierto = pygame.mixer.Sound("Musica/oh-yeah.wav")
+    musicaPerdedor = pygame.mixer.Sound("Musica/game over.mp3")
 
     #Preparar la ventana
     pygame.display.set_caption("La escondida...")
@@ -23,6 +24,12 @@ def main():
     FONDO = pygame.image.load("Fondos/13.jpg").convert()
     FONDO2 = pygame.image.load("Fondos/12.jpg").convert()
     FONDO3 = pygame.image.load("Fondos/15.jpg").convert()
+
+    #pygame.mixer.init()
+    #musica de fondo
+    pygame.mixer.music.load("Musica/musicafondo.mp3")
+    pygame.mixer.music.play(3)
+    pygame.mixer.music.set_volume(0.15)
 
     #valores de inicio
     inicio = True
@@ -57,7 +64,6 @@ def main():
                 #Esc para salir
                 elif e.type == KEYDOWN:
                     if e.key == K_ESCAPE:
-                        inicio = False
                         pygame.quit()
                         return()
 
@@ -97,10 +103,6 @@ def main():
                     
         #Reiniciar valores
         if not(final):
-            #pygame.mixer.init()
-            pygame.mixer.music.load("Musica/musicafondo.mp3")
-            pygame.mixer.music.play(3)
-            pygame.mixer.music.set_volume(0.05)
             #tiempo total del juego
             gameClock = pygame.time.Clock()
             totaltime = 0
@@ -109,12 +111,16 @@ def main():
             #Define la cantidad de segundos segun la dificultad
             if rec7_X2 <= 310:
                 segundos = TIEMPO_BASE*2
+                largo = random.randint(3,4)
             elif rec7_X2 <= 470:
                 segundos = TIEMPO_BASE
+                largo = 5
             elif rec7_X2 <= 630:
-                segundos = TIEMPO_BASE//2
+                segundos = TIEMPO_BASE - 15
+                largo = random.randint(6,8)
             else:
-                segundos = TIEMPO_BASE//4
+                segundos = TIEMPO_BASE//2
+                largo = random.randint(9,12)
 
             #valores basicos
             nombre = ""
@@ -134,8 +140,7 @@ def main():
             lectura(archivo, listaPalabrasDiccionario)
 
             #elige una al azar
-            #quitar ,LARGO para obtener una palabra aleatoria
-            palabraCorrecta=nuevaPalabra(listaPalabrasDiccionario,LARGO)
+            palabraCorrecta=nuevaPalabra(listaPalabrasDiccionario,largo)
 
             print(palabraCorrecta)
             archivo.close()
@@ -194,10 +199,11 @@ def main():
                                 error ="ya ingresada"
                                 palabraUsuario = ""
                                 continue
+                            
                             correctas = []
                             incorrectas = []
                             casi = []
-
+                            #revisa si se acerto la palabra
                             gano = revision(palabraCorrecta.lower(), palabraUsuario, correctas, incorrectas, casi)
                             ListaDePalabrasUsuario.append(palabraUsuario)
                             palabraUsuario = ""
@@ -205,22 +211,25 @@ def main():
                             
             #agregar sonido
             if gano:
-                puntos+=1
+                #añade puntos segun la cantidad de intentos realizado
+                puntos += 6-len(ListaDePalabrasUsuario)
                 #sonido ganador
+                sonidoAcierto.set_volume(0.4)
+                pygame.mixer.music.set_volume(0.05)
                 sonidoAcierto.play()
-                pygame.mixer.music.set_volume(0.10)
 
             if intentos==0 or  int(segundos)==0 :
-                pygame.mixer.music.load("Musica/game over.mp3")
-                pygame.mixer.music.play() 
-                pygame.mixer.music.set_volume(0.10)
+                #sonido perdedor
+                musicaPerdedor.set_volume(0.25)
+                pygame.mixer.music.set_volume(0.05)
+                musicaPerdedor.play() 
 
             #Limpiar pantalla anterior            
             screen.blit(FONDO,[0,0])
 
             #Dibujar de nuevo todo
-            dibujar(screen, ListaDePalabrasUsuario, palabraUsuario, puntos,segundos, gano,
-                    correctas, incorrectas, casi,error,palabraCorrecta, intentos)
+            dibujar(screen, ListaDePalabrasUsuario, palabraUsuario, puntos,segundos,
+                    correctas, incorrectas, casi,error,palabraCorrecta)
             pygame.display.flip()
         
         #bucle Final
@@ -236,6 +245,7 @@ def main():
 
             #saca el evento ocurrido en pygame           
             for e in pygame.event.get():
+
                 if e.type == QUIT:
                     pygame.quit()
                     return()
@@ -243,8 +253,6 @@ def main():
                 elif e.type == KEYDOWN:
                     #Esc para salir
                     if e.key == K_ESCAPE:
-                        salir = True
-                        final = False
                         pygame.quit()
                         return()
 
@@ -261,20 +269,25 @@ def main():
                     elif mouseY in range(REC2_Y1,REC2_Y2+1):
                         #Salir
                         if mouseX in range(REC2_X1,REC2_X2+1):
-                            salir = True
-                            final = False
                             pygame.quit()
                             return
-                        #GUARDAR
+                        #guardar
                         elif mouseX in range(REC9_X1,REC9_X2+1):
-                            print("GUARDAR")
                             final= False
                             guarda= True
+
+        #reinicia el volumen de la musica de fondo
+        pygame.mixer.music.set_volume(0.15)
+
+        #Espera una decima de segundo
+        contador = pygame.time.get_ticks()/1000 + 0.1
+        while contador > pygame.time.get_ticks()/1000:
+            pass
         while guarda and not salir:
+            #dibujar
             screen.blit(FONDO2,[0,0])
             dibujarGuardar(screen,nombre)
             pygame.display.flip()
-           
 
             #posicion del mouse
             mouseX,mouseY = pygame.mouse.get_pos()
@@ -288,8 +301,6 @@ def main():
                 elif e.type == KEYDOWN:
                     #Esc para salir
                     if e.key == K_ESCAPE:
-                        salir = True
-                        final = False
                         pygame.quit()
                         return()
                     letra = dameLetraApretada(e.key)
@@ -306,14 +317,14 @@ def main():
                         guardar_puntajes(puntaje) 
                         guarda = False
                         inicio = True
+
+            #Entrega el clic derecho del mouse
             if pygame.mouse.get_pressed()[0]:
                 if mouseY in range(REC10_Y1,REC10_Y2+1):
-                        #Salir
+                        #Cancelar
                         if mouseX in range(REC10_X1,REC10_X2+1):
-                            salir = True
-                            final = False
-                            pygame.quit()
-                            return                
+                            guarda = False    
+                            final = True         
 
     #cierre del juego si se rompe el bucle
     pygame.quit()

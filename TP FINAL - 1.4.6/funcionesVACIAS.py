@@ -1,7 +1,6 @@
 from principal import *
 from configuracion import *
 import random
-import math
 
 #Elije una palabra al azar
 def nuevaPalabra(lista,largo=0):
@@ -9,7 +8,7 @@ def nuevaPalabra(lista,largo=0):
     if largo >0:
         while len(lista[numero]) != largo:
             numero=random.randrange(len(lista))
-    return lista[numero]
+    return lista[numero].lower()
 
 #Lee el archivo 
 def lectura(archivo, salida):
@@ -57,14 +56,11 @@ def cambiarColorLetra(letra,correctas,casi,incorrectas):
 def FuenteDelTexto(tamannoDeLaFuente, nombreDeLaFuente = pygame.font.get_default_font()):
     fuente = pygame.font.Font( nombreDeLaFuente , tamannoDeLaFuente )
     return fuente
-    #Frase y sus caracteristicas
+#Frase y sus caracteristicas
 def EtiquetaDelTexto(texto,tipoDeRenderizado,ColorDelTexto,fuente):
     etiqueta = fuente.render( texto , tipoDeRenderizado , ColorDelTexto )
     return etiqueta
     
-    ###--Esto es lo que escribe en pantalla--###
+#escribe un texto con/sin los valores de las 2 funciones anteriores
 def mostrarTexto(screen,coordenadaX,coordenadaY,etiqueta):
     screen.blit( etiqueta, ( coordenadaX - etiqueta.get_width()//2, coordenadaY))
-
-
-

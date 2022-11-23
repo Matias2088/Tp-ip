@@ -85,9 +85,7 @@ def dibujarInicio(screen,rectangulo7):
     pygame.draw.rect(screen,COLOR_BORDO,REC5,0,30)
     pygame.draw.rect(screen,COLOR_GRIS_OSCURO,REC5,7,30)
 
-
-    #Poner en una funcion
-    #Pone la linea de dificultad en colores
+    #Pone la linea de dificultad en colores RG
     cont = rojo = 0
     verde = 255
     while cont <=510:
@@ -96,9 +94,8 @@ def dibujarInicio(screen,rectangulo7):
         if cont%2 == 0:
             rojo +=1
             verde -=1
-
-    #Poner en una funcion
-    #Separadores de dificultad
+    
+    #Crea los separadores de dificultad
     fuenteDificultad = pygame.font.Font( pygame.font.get_default_font(), 30)
     cont = 0
     for LINEA_POS_X in LINEAS_DIFICULTAD_X:
@@ -112,6 +109,7 @@ def dibujarInicio(screen,rectangulo7):
             dificultad = "Imposible"
         EtiquetaDificultad = EtiquetaDelTexto(dificultad,1,COLOR_VERDE,fuenteDificultad)
 
+        #Lineas de dificultad
         pygame.draw.line(screen,COLOR_GRIS_OSCURO,(LINEA_POS_X,REC6_Y1-10),(LINEA_POS_X,REC6_Y2+10),6)
         screen.blit(EtiquetaDificultad,(LINEA_POS_X-EtiquetaDificultad.get_width()//2,REC6_Y1+40))
 
@@ -154,7 +152,7 @@ def dibujarFinal(screen,gano,palabraCorrecta,intentos,segundos):
     pygame.draw.rect(screen,COLOR_GRIS_OSCURO,REC9,7,30)   
 
     #Valores base de los textos
-    defaultFont= pygame.font.Font( pygame.font.get_default_font(), 40)
+    defaultFont = pygame.font.Font( pygame.font.get_default_font(), 40)
     etiquetaReiniciar = EtiquetaDelTexto("Reiniciar",1,COLOR_BLANCO,defaultFont)
     etiquetaSalir = EtiquetaDelTexto("Salir",1,COLOR_BLANCO,defaultFont)
     etiquetaMenu = EtiquetaDelTexto("Menu",1,COLOR_BLANCO,defaultFont)
@@ -184,8 +182,9 @@ def dibujarFinal(screen,gano,palabraCorrecta,intentos,segundos):
         mostrarTexto(screen,CENTRO_PANTALLA_X,260,EtiquetaDelTexto(textoPalabraCorrecta, 1 , COLOR_BLANCO,FuenteDelTexto(TAMANNO_LETRA)))
 
 #funcion dibujar en el juego
-def dibujar(screen, listaDePalabrasUsuario, palabraUsuario, puntos, segundos, gano,
-                correctas, incorrectas, casi, error, palabraCorrecta, intentos):
+def dibujar(screen, listaDePalabrasUsuario, palabraUsuario, puntos, segundos,
+                correctas, incorrectas, casi, error, palabraCorrecta):
+    #Fuentes iniciales
     defaultFont= pygame.font.Font( pygame.font.get_default_font(), TAMANNO_LETRA)
     defaultFontGrande= pygame.font.Font( pygame.font.get_default_font(), TAMANNO_LETRA_GRANDE)
 
@@ -238,21 +237,26 @@ def dibujar(screen, listaDePalabrasUsuario, palabraUsuario, puntos, segundos, ga
     
     
 def dibujarGuardar(screen,nombre):
-    REC10 = pygame.Rect(REC10_X1,REC10_Y1, REC10_X12, REC10_Y12)  
-    defaultFont= pygame.font.Font( pygame.font.get_default_font(), 40)  
+    #Rectangulo cancelar
+    REC10 = pygame.Rect(REC10_X1,REC10_Y1, REC10_X12, REC10_Y12)
     pygame.draw.rect(screen,COLOR_ROJO,REC10,0,30)
     pygame.draw.rect(screen,COLOR_GRIS_OSCURO,REC10,7,30)
-    etiquetaSalir = EtiquetaDelTexto("Salir",1,COLOR_AZUL,defaultFont)  
+
+    #Textos de pantalla
+    defaultFont= pygame.font.Font( pygame.font.get_default_font(), 40)
+    etiquetaSalir = EtiquetaDelTexto("Cancelar",1,COLOR_AZUL,defaultFont)
     screen.blit(etiquetaSalir,(REC10_X1+REC10_X12//2-etiquetaSalir.get_width()//2 , REC10_Y1+REC10_Y12//2-etiquetaSalir.get_height()//2))  
-        #Limpia la pantalla        
     textoFinal = "INGRESA TU NOMBRE"
     mostrarTexto(screen,CENTRO_PANTALLA_X,ALTO-100 ,EtiquetaDelTexto(textoFinal,1,COLOR_TEXTO, FuenteDelTexto(TAMANNO_LETRA)))
+
+    #Linea estetica
     pygame.draw.line(screen, (255,255,255), (0, ALTO-70) , (ANCHO, ALTO-70), 5)
 
     #muestra lo que escribe el jugador
     etiquetaNombre = defaultFont.render(nombre, 1, COLOR_TEXTO)
     screen.blit(etiquetaNombre, (CENTRO_PANTALLA_X-etiquetaNombre.get_width()//2, 550))
 
+    #Rellena la pantalla con las mejores 10 puntuaciones puntuaciones
     pos = 0
     for nick,puntos in devoluciones10():
         screen.blit(defaultFont.render(nick, 1, COLOR_LETRAS), (50,20+ 40 * pos))

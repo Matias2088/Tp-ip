@@ -5,10 +5,7 @@ FPS_inicial = 3
 TAMANNO_LETRA = 20
 TAMANNO_LETRA_GRANDE = 70
 TAMANNO_LETRA_FINAL = 50
-TIEMPO_BASE = 120
-
-#Largo de las palabras
-LARGO = 5
+TIEMPO_BASE = 60
 
 #Posiciones de pantalla
 ANCHO = 800
@@ -30,7 +27,6 @@ COLOR_GRIS_OSCURO = (80,80,80)
 COLOR_BLANCO = (255,255,255)
 COLOR_NEGRO = (0,0,0)
 COLOR_BORDO = (139,0,0)
-
 
 #valores figuras
 #rectangulo Reiniciar
