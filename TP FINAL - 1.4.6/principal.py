@@ -80,6 +80,7 @@ def main():
                         #Acerca de
                         elif mouseY in range(REC5_Y1,REC5_Y2+1):
                             print("acerca de")
+                            archivo= open("informe.pdf","r")
 
                     #Activa el movimiento del "scrol"
                     if e.type == MOUSEBUTTONDOWN:
