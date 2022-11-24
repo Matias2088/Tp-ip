@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-import os, random, sys, math
+import os, random, sys, math, webbrowser
 
 import pygame
 from pygame.locals import *
@@ -80,7 +80,8 @@ def main():
                         #Acerca de
                         elif mouseY in range(REC5_Y1,REC5_Y2+1):
                             print("acerca de")
-                            archivo= open("informe.pdf","r")
+                            path = "informe.pdf"
+                            webbrowser.open_new(path)
 
                     #Activa el movimiento del "scrol"
                     if e.type == MOUSEBUTTONDOWN:
